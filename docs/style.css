@@ -8,11 +8,11 @@
     padding: 20px;
     max-width: 100%;
   }
-  
+
   h1 {
     font-size: 10vw;
-    font-family: 'Helvetica Neue', sans-serif;
-    font-weight: 600;
+    font-family: Menlo, Monaco, 'Courier New', monospace;
+    font-weight: 900;
     font-style: bold;
     white-space: nowrap;
     background: linear-gradient(to right, rgb(188, 188, 255), rgb(255, 182, 255), rgb(185, 179, 255));
