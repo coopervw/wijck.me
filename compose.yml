@@ -1,0 +1,15 @@
+services:
+  wijck.me:
+    image: nextjs-docker
+    container_name: wijck.me
+    ports:
+      - "6530:3000"
+    networks:
+      - caddy
+    labels:
+      caddy: wijck.me
+      caddy.reverse_proxy: "* {{upstreams 3000}}"
+      diun.enable: true
+networks:
+  caddy:
+    external: true
