@@ -41,6 +41,7 @@ const TypeItComponent: React.FC<TypeItComponentProps> = ({ children, speed = 50,
               speed: speed,
               waitUntilVisible: true,
               lifeLike: true,
+              cursor: false,
             }}
         />
       </div>
