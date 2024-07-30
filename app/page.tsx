@@ -1,6 +1,11 @@
 import { BlogPosts } from 'app/components/posts'
 import TypeItComponent from 'app/components/typed'
 
+export const metadata = {
+  title: 'Home | Cooper van Wijck', // This will use the template to become "Home | Cooper van Wijck"
+  description: 'Welcome to my portfolio site.',
+};
+
 export default function Page() {
   return (
     <section className="items-center ">
