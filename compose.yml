@@ -8,7 +8,7 @@ services:
       - caddy
     labels:
       caddy: wijck.me
-      caddy.reverse_proxy: "* {{upstreams 3000}}"
+      caddy.reverse_proxy: "{{upstreams 3000}}"
       diun.enable: true
 networks:
   caddy:
