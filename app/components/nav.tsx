@@ -42,10 +42,10 @@ export function Navbar() {
           >
             <div
                 ref={navRef}
-                className="relative flex flex-row space-x-0 py-1 bg-gray-100 dark:bg-gray-100 rounded-full"
+                className="relative flex flex-row space-x-0 py-1 bg-gray-100 dark:bg-gray-800 rounded-full"
             >
               <div
-                  className={`absolute top-0 left-0 h-full bg-black rounded-full ${isInitialLoad ? '' : 'transition-all duration-300 ease-in-out'}`}
+                  className={`absolute top-0 left-0 h-full bg-black dark:bg-white rounded-full ${isInitialLoad ? '' : 'transition-all duration-300 ease-in-out'}`}
                   style={{
                     width: `${bubbleStyle.width}px`,
                     transform: `translateX(${bubbleStyle.left}px)`,
@@ -59,7 +59,7 @@ export function Navbar() {
                   href={path}
                   className={`relative z-10 transition-all duration-300 ease-in-out flex align-middle py-1 px-4 rounded-full focus:outline-none ${
                     isActive
-                      ? 'text-white' // Active text color
+                      ? 'text-white dark:text-black' // Active text color
                       : 'text-neutral-800 dark:text-neutral-200' // Default text color
                   }`}
                 >

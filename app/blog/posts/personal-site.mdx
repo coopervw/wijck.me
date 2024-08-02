@@ -1,0 +1,87 @@
+---
+
+title: 'Creating and Self-Hosting my Personal Website'
+publishedAt: '2024-08-02'
+summary: 'How I made my personal website and self hosted it.'
+
+---
+
+## Why make a website?
+
+I’ve always liked the idea of having a personal website where I could display my projects and work. I’m fascinated by the idea of the [old web](https://oldweb.net). The internet where people had their own websites and content was spread across the web so I wanted it to be something I am in complete control of, not hosted on someone else’s website.
+
+Of course this project is built on a lot of other people’s work and freely available systems like [Cloudflare](https://developers.cloudflare.com/dns/?_gl=1*h9muj5*_gcl_au*NjYxNjkyMjg5LjE3MjIyMzkwMjg.*_ga*ZTNkMjkyMGMtYWQ2MC00ZDE4LWEwNzAtZTk5NWQ3OGRmOGI5*_ga_SQCRB0TXZW*MTcyMjU2MTUwMi4xLjEuMTcyMjU2MTU1NC4wLjAuMA..) which if they were to change their business agreements could jeopardise my site. I don’t need to be completely independent or immune to change and I’d rather have the flexibility and ease-of-use that using these third-parties offers.
+
+## What would the website look like or do?
+
+I really just wanted a simple website to link people to as something of a digital business card. I didn't have a specific vision of the layout or the content of the site and so much of the design process was blended with building the site itself. I have always had a lingering interest in design, which has typically been expressed digitally as much artistic skills certainly leave something to be desired. This was a fun exercise of those right-brain creative muscles which I don't use all that often.
+
+## How did I do it?
+
+I hadn't done any university course or formal education on web development so this was something I was going into mostly blind. In my work I had developed some basic HTML and made sites using the Python framework, [Django](https://github.com/django). I had also previously hosted a static HTML page on [wijck.me](wijck.me) which simply linked to my email address, [cooper@vanwijck.me](mailto:cooper@vanwijck.me). However, I wanted to learn how to make a 'real' website using a JavaScript framework.
+
+### Choosing a Framework
+
+This was one of the hardest parts of this project as without any prior experience, the wide world of web frameworks was quite daunting. Following the traditional wisdom of a young, inexperienced, Gen Z programmer, I tried asking ChatGPT, but this is how I ended up manually writing obscure [Pug scripts](https://github.com/pugjs/pug) and manual CSS declarations for a work project. I think some old-fashioned research would do me better in this instance.
+
+I finally landed on [React](https://github.com/facebook/react). I was lead to choose React over something like [Angular](https://github.com/angular) because it seemed well supported, I generally understood its interfaces and I found some component libraries that I liked. I can't comment on how much [Mark Zuckerberg's recent redemption arc](https://www.youtube.com/watch?v=YuIc4mq7zMU&t=171s&pp=ygUebWFyayB6dWNrZXJiZXJnIHJlZGVtcHRpb24gYXJj) influenced choosing Facebook over [Google](https://en.wikipedia.org/wiki/Don't_be_evil) in this instance.
+
+I began trying to develop the project using the [NextUI component library](https://github.com/nextui-org/nextui) but quickly found it difficult to work with. The default project template had an overwhelming and confusing structure which was not compatible with my complete lack of knowledge of these web frameworks. However, I liked the underlying [NextJS framework](https://github.com/vercel/next.js) and chose to use this to implement my site.
+
+### Designing the Site
+
+I have always found it difficult to plan out a concept fully before I get too excited and begin tinkering through it and developing my ideas on the fly. Whether it is an essay for university or a website, I tend to build first and work let my work guide me towards a finished product. This works in the iterative nature of a software project, but can make a 4000 word research essay quite daunting.
+
+For this reason, I didn't end up using [Figma](https://www.figma.com/), [Sketch](https://www.sketch.com) or any other tool to design my site before jumping in to the code. Through all of my fiddling with frameworks earlier, I had already begun to crystallise at least an initial draft of what I was looking for.
+
+I first found [Pangram Pangram's fonts](https://pangrampangram.com) when I stumbled onto [Grok Ventures](https://grok.ventures)' site a few years ago. I thought their [Neue Montreal](https://pangrampangram.com/products/neue-montreal) and [Neue Montreal Mono](https://pangrampangram.com/products/neue-montreal-mono) typefaces were gorgeous. They appealed to the same side of me that loved the clean lines and shape of the iPod Classic I used to play [Parachute](https://www.youtube.com/watch?v=XgQssyhdbug) on.
+
+I wanted to use their fonts, which they make available for free for personal project (like this one!) and spent hours trying to work out importing a custom font using NextJS. I managed to (imperfectly) use the font but ended up abandoning this in favour of using a [Google Font](https://fonts.google.com) to simplify things for my first try at web design. If you're reading this a little after publishing, I might have updated things!
+
+### Developing the Site
+
+I bumbled my way through the docs, learning as I went. I took the NextJS [blog site template](https://github.com/vercel/next.js/tree/canary/examples/blog) and customised it as I wanted. As I dreamt up a design element such as the animated bubble page selector, or typed name text, I would search around online and slowly iterate it until my element looked like I wanted. It was very slow at first but as I worked through more elements, I understood the conventions more and my pace increased. I found it very rewarding to see the elements I wanted come to life on my second monitor!
+
+This was also my first time using [TailwindCSS](https://tailwindcss.com). At first I struggled to understand all the abbreviations and names, but once I understood the basics, I found it sped me up so much. I think this is the way CSS should work and you will not find me manually writing stylesheets again.
+
+```javascript
+// This makes sense!!!
+<div className="relative flex flex-row space-x-0 py-1 bg-gray-100 dark:bg-gray-100 rounded-full">
+```
+
+### Hosting the Site
+
+I had initially hosted on this domain using [GitHub Pages](https://pages.github.com) to simplify the hosting and move the responsibility to manage it into someone else's hands! At first, I tried to host my new shiny NextJS site using GitHub Pages but struggled to get the Actions deployment pipeline to play nice with `pnpm` to build my site properly. Additionally, moving away from this would allow me to host a dynamic site later, and of course meant that I would not be entirely reliant on GitHub providing this service in the future.
+
+I have been running some form of [Homelab](https://reddit.com/r/homelab) since before I began my degree. It is a fun hobby which has taught me so much about infrastructure, programming, virtualisation and networking. I will write a later post about my current Homelab setup and link it here when I do.
+
+I use a `docker compose` stack with [Caddy](https://github.com/caddyserver/caddy) to serve my hosted services over HTTPS. Hosting this site was as easy as following NextJS's instructions on building a [Docker](https://www.docker.com) container for my site and then adding the new container to my stack with the necessary reverse proxy directives for Caddy.
+
+Below is my `compose.yml` which hosts this site! I will break this down more in my Homelab post but have redacted some port numbers just in case, even though it doesn't really matter (though I could be wrong!).
+
+```dockerfile
+services:
+  wijck.me:
+    image: nextjs-docker
+    container_name: wijck.me
+    ports:
+      - "internalPort:externalPort"
+    networks:
+      - caddy
+    labels:
+      caddy: wijck.me
+      caddy.reverse_proxy: "{{upstreams externalPort}}"
+      diun.enable: true
+networks:
+  caddy:
+    external: true
+```
+
+## Next
+
+This is obviously an evolving project and when you view this post, things might have changed… a lot! I have some ideas about what I’d like to do with the homepage to give it some more colour or life.
+
+Below is a screenshot of the homepage of the site as it exists today as a bit of a time capsule.
+
+![Image.png](https://res.craft.do/user/full/50df5195-71d3-48ec-34d8-888d28395a12/doc/ACE080DA-0ACD-4F4B-9416-382B4501ED8C/E05FD594-AA7E-4A0D-BC25-18869E578751_2/HQXOaB0QVlIDPv2oC4sehYTjmXiQIFRkFB8ne0RbVm8z/Image.png)
+
