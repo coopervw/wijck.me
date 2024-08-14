@@ -15,7 +15,7 @@ export default function Page() {
         </h1>
         <TypeItComponent speed={200} className='font-semibold text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-mono tracking-tighter'>Cooper.</TypeItComponent>
       </div>
-      <p className="mb-4">
+      <p className="my-4">
         {`I'm a final-year student at the University of New South Wales, where I study Law and Computer Science. 
         My passion lies at the intersection of technology and law, and I'm excited to explore how emerging 
         technologies impact and shape society. I enjoy investigating how automation and the integration of 
