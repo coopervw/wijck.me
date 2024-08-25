@@ -6,6 +6,7 @@ services:
       - "6530:3000"
     networks:
       - caddy
+    restart: always
     labels:
       caddy: wijck.me
       caddy.reverse_proxy: "{{upstreams 3000}}"
