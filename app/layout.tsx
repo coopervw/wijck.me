@@ -1,7 +1,5 @@
 import './global.css'
 import type { Metadata } from 'next'
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
 import { Inter } from 'next/font/google'
 import { JetBrains_Mono } from "next/font/google";
 import { Navbar } from './components/nav'
@@ -16,16 +14,16 @@ const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'] })
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: 'Cooper van Wijck',
+    default: 'wijck.me | Cooper van Wijck\'s Portfolio and Blog',
     template: '%s | Cooper van Wijck',
   },
-  description: 'This is my portfolio.',
+  description: 'I\'m a final-year student at the University of New South Wales, where I study Law and Computer Science. My passion lies at the intersection of technology and law, and I\'m excited to explore how emerging technologies impact and shape society. I enjoy investigating how automation and the integration of technology can enhance efficiency and enjoyment in our daily lives.',
   openGraph: {
-    title: 'Cooper van Wijck',
-    description: 'This is my portfolio.',
+    title: 'wijck.me | Cooper van Wijck\'s Portfolio',
+    description: 'I\'m a final-year student at the University of New South Wales, where I study Law and Computer Science. My passion lies at the intersection of technology and law, and I\'m excited to explore how emerging technologies impact and shape society. I enjoy investigating how automation and the integration of technology can enhance efficiency and enjoyment in our daily lives.',
     url: baseUrl,
-    siteName: 'Cooper van Wijck',
-    locale: 'en_US',
+    siteName: 'wijck.me | Cooper van Wijck\'s Portfolio and Blog',
+    locale: 'en_AU',
     type: 'website',
   },
   robots: {
@@ -53,10 +51,11 @@ export default function RootLayout({
       lang="en"
       className={cx(
         'text-black bg-white dark:text-white dark:bg-black',
+          jetbrainsMono.className,
           inter.className,
       )}
     >
-      <body className="antialiased flex flex-col min-h-screen max-w-5xl mx-auto px-4">
+      <body className="antialiased flex flex-col min-h-screen max-w-5xl mx-auto px-4 font-inter">
         <Navbar />
         <main className="flex-grow mt-4 mb-8">
           {children}
