@@ -1,7 +1,9 @@
 services:
   wijck.me:
-    image: nextjs-docker
     container_name: wijck.me
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "6530:3000"
     networks:
