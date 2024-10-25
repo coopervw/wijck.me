@@ -51,11 +51,10 @@ export default function RootLayout({
       lang="en"
       className={cx(
         'text-black bg-white dark:text-white dark:bg-black',
-          jetbrainsMono.className,
-          inter.className,
+        inter.className, // Apply Inter font to the whole site
       )}
     >
-      <body className="antialiased flex flex-col min-h-screen max-w-5xl mx-auto px-4 font-inter">
+      <body className="antialiased flex flex-col min-h-screen max-w-5xl mx-auto px-4">
         <Navbar />
         <main className="flex-grow mt-4 mb-8">
           {children}

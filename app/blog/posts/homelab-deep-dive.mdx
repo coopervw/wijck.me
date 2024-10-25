@@ -1,0 +1,112 @@
+
+---
+
+title: 'Diving Into My Homelab'
+publishedAt: '2024-10-25'
+summary: 'What's in my Homelab, how I use it and what I plan to do with it.'
+image: '/images/homelab.jpg'
+
+---
+
+As I mentioned in my [very first blog post](https://wijck.me/blog/personal-site), I felt I had to explain my wider [Homelab](https://www.reddit.com/r/homelab/wiki/index/) infrastructure as it stands now so that future posts about expanding and upgrading it make sense.
+
+I have a lot of plans on where to go, services to host and improvements to make but this is how it exists right now!
+
+## Hardware
+
+The hardware I am currently utilising in my Homelab begins with the [Unifi Dream Machine Pro](https://store.ui.com/us/en/products/udm-pro). This is my main router and is connected to my ISP modem which is operating in [bridge mode](https://openwrt.org/docs/guide-user/network/wan/bridge-mode). As an Apple fan I was of course caught by the allure of Unifi's aluminium enclosure but the upgrade to a prosumer/[SOHO](https://en.wikipedia.org/wiki/Small_office/home_office) device is unmistakable. The UI is far more polished and useful than any basic ISP router and the UDM-Pro is a great way into their ecosystem of products. I use its 8 ports to connect to my NAS and my Orange Pi.
+
+That's right, an Orange and not a Raspberry. The [Orange Pi 5B](http://www.orangepi.org/html/hardWare/computerAndMicrocontrollers/details/Orange-Pi-5B.html) has an 8-core CPU, 4-core GPU and an NPU with 6 TOPS as well as WiFi, Bluetooth and a gigabit ethernet port. My model has 8GB of memory (because I thought my SBC having more RAM than my laptop was silly) and an internal SSD with 64GB of storage. I've had absolutely no trouble with this device, except for getting it to boot into the right operating system. When the Pi arrived it was preloaded with [Orange Pi OS](http://www.orangepi.org/html/softWare/orangePiOS/index.html) on its eMMC internal storage, a usable but not excellent desktop Linux distro. I wanted to use this as a server and had no use for the desktop, so I replaced it with [Armbian](https://www.armbian.com), loaded using [Balena Etcher](https://etcher.balena.io) onto an SD card and then moved it to the [eMMC](https://jumptuck.com/blog/2023-02-13-install-linux-orange-pi-3-lts-emmc/). This was quite the process as I wasn't home with a monitor or keyboard so I had to fight with the board with no IO!
+
+If the UDM-Pro is the heart of my Homelab, the Orange Pi is the brain. It runs all of my containers and connects to my NAS to serve and store media.
+
+Speaking of the NAS, I am currently using a [Drobo 5N2](https://www.servethehome.com/new-drobo-5n2-5-bay-nas-review/). Unfortunately the Apple marketing got to me here again and I chose a system which shortly after my purchase, effectively went EoL. [Drobo went bankrupt](https://petapixel.com/2023/06/06/drobo-is-officially-done-as-the-company-moves-into-liquidation/) and is in liquidation with their customer support becoming completely nonexistent. This might be ok if it weren't for the [DroboFS](https://arstechnica.com/information-technology/2011/03/drobo-review-1/) proprietary file system! This means that if the unit fails, the drives are not readable except by another Drobo device. As the data storage solution for my photos, videos, backups and everything, this is hardly ideal. I am considering changing the Drobo for a custom [TrueNAS](https://www.truenas.com) system or a similar [Synology](https://www.synology.com/en-au/products?product_line=ds_j%2Cds_plus%2Cds_value%2Cds_xs) NAS.
+
+That's it! More or less. These are the main devices which comprise my Homelab, however, there are a few extras which I use on occasion (or often) which I figure should be mentioned.
+
+- MacBook Pro (16 inch, 2021, M1 Pro)
+- Raspberry Pi 3B (not currently in use)
+- Raspberry Pi 2 (not currently in use)
+
+## Software
+
+I have tried to 'dockerise' my entire setup to simplify deployment and updating of my applications.
+
+### Docker Compose
+
+The Orange Pi runs docker with a series of docker compose YAML files to configure each application stack.
+
+- `bazarr` - Automatic subtitle fetching
+- `caddy` - A fast and simple server
+- `diun` - Container update notifications
+- `dockge` - Container and compose management
+- `heimdall` - Homepage
+- `jellyfin` - Media player
+- `jellyseerr` - Media request portal
+- `maybe` - Personal finance dashboard
+- `paperless` - Document management system
+- `pihole` - DNS-level ad blocking
+- `prowlarr` - Indexer manager
+- `qbittorrent` - Torrent application
+- `radarr` - Movie organiser and manager
+- `sonarr` - TV organiser and manager
+- `uptime-kuma` - Uptime monitoring
+- `wijck.me` - This website!
+
+Most of the docker compose files in each application's directory look similar to that of my site.
+
+```dockerfile
+services:
+  wijck.me:
+    image: nextjs-docker
+    container_name: wijck.me
+    ports:
+      - "internalPort:externalPort"
+    networks:
+      - caddy
+    labels:
+      caddy: wijck.me
+      caddy.reverse_proxy: "{{upstreams externalPort}}"
+      diun.enable: true
+networks:
+  caddy:
+    external: true
+```
+
+Anything which needs to expose a web frontend to the public internet will include the external `caddy` network. [Caddy](https://caddyserver.com) is a web server which I use as a reverse proxy to each of my apps. The `labels` function dynamically creates a `Caddyfile` for me and stands up this reverse proxy for each of my services. This is automatically served over HTTPS with a valid certificate and is essentially invisible to the container itself.
+
+The `diun` label tells [diun](https://github.com/crazy-max/diun) to watch this container and send me an email notification if a new version is pushed to its container registry.
+
+If the container needs access to my NAS or a config file (which I store separately to the `compose.yml`, I expose this via a volume.
+
+```dockerfile
+volumes:
+  - /home/coopervw/docker/jellyfin/config:/config
+  - /mnt/drobo/TV:/data/tvshows
+  - /mnt/drobo/Movies:/data/movies
+```
+
+### Virtual Private Network
+
+To enable secure access to some services, I use Tailscale as a VPN service. This enables me to securely authenticate from my laptop or phone and connect to my local network and containers from outside of my LAN in a trusted way.
+
+For example, SSH for any server is only accessible on the local network using a whitelist so I need to connect to my Tailnet to be able to have access to this port.
+
+### Domain Names
+
+I use Cloudflare as my nameserver provider for all of my domains and my registrar for some. I use their free tier which has been excellent and for those services which they allow, I proxy my traffic through their servers to take advantage of Cloudflare's expansive CDN.
+
+I use subdomains for each of my services, each of which points to that service's web UI using HTTPS with the Caddy reverse proxy.
+
+## Future Plans
+
+In the future, I would love to upgrade some of the hardware and test out some additional services both to expand my capabilities and my knowledge.
+
+I would love to implement a simplified and centralised authorisation solution. Currently each app has its own auth solution which makes my keychain on my personal sites messy and difficult to manage. I'm looking at running [Authentik](https://goauthentik.io) or [Authelia](https://www.authelia.com).
+
+Backups (at least of my config files!). This would make a huge difference. I'm yet to have a catastrophic failure but with the read/write endurance of eMMC chips I'm holding my breath. Hope is not a substitute for proper backups!
+
+As I mentioned, replacing my NAS is a very important upgrade, also for my backup and data integrity wishes. I'm leaning towards stacking my old Windows PC with harddrives and running TrueNAS though I still have some research to do in this area.
+
+A Kubernetes cluster! I've touched on using Kubernetes in my work and it would be a good learning experience to try to implement one at home. Smaller, more lightweight tools like [k3s](https://k3s.io) would be great for this and I could use some of my currently dormant Raspberry Pi's as some additional nodes.
+
