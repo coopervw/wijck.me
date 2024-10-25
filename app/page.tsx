@@ -3,7 +3,7 @@ import TypeItComponent from 'app/components/typed'
 
 export const metadata = {
   title: 'Home | Cooper van Wijck', // This will use the template to become "Home | Cooper van Wijck"
-  description: 'Welcome to my portfolio site.',
+  description: 'The personal website of Cooper van Wijck, a final-year student at the University of New South Wales studying Law and Computer Science.',
 };
 
 export default function Page() {
