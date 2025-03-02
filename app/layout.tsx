@@ -17,10 +17,22 @@ export const metadata: Metadata = {
     default: 'wijck.me | Cooper van Wijck\'s Portfolio and Blog',
     template: '%s | Cooper van Wijck',
   },
-  description: 'I\'m a final-year student at the University of New South Wales, where I study Law and Computer Science. My passion lies at the intersection of technology and law, and I\'m excited to explore how emerging technologies impact and shape society. I enjoy investigating how automation and the integration of technology can enhance efficiency and enjoyment in our daily lives.',
+  description: `I'm a technology focused graduate at HUB24, having completed my Bachelor of Laws and Bachelor of Computer Science 
+        at the University of New South Wales. Currently undertaking my Graduate Diploma of Legal Practice 
+        at the College of Law, I operate at the intersection of technology and law. My interdisciplinary 
+        background provides unique insights into how technology interfaces with legal and social systems, 
+        particularly in areas of automation and emerging technologies. I'm passionate about exploring how 
+        these innovations can enhance efficiency and create positive change in our daily lives.
+        `,
   openGraph: {
     title: 'wijck.me | Cooper van Wijck\'s Portfolio',
-    description: 'I\'m a final-year student at the University of New South Wales, where I study Law and Computer Science. My passion lies at the intersection of technology and law, and I\'m excited to explore how emerging technologies impact and shape society. I enjoy investigating how automation and the integration of technology can enhance efficiency and enjoyment in our daily lives.',
+    description: `I'm a technology focused graduate at HUB24, having completed my Bachelor of Laws and Bachelor of Computer Science 
+        at the University of New South Wales. Currently undertaking my Graduate Diploma of Legal Practice 
+        at the College of Law, I operate at the intersection of technology and law. My interdisciplinary 
+        background provides unique insights into how technology interfaces with legal and social systems, 
+        particularly in areas of automation and emerging technologies. I'm passionate about exploring how 
+        these innovations can enhance efficiency and create positive change in our daily lives.
+        `,
     url: baseUrl,
     siteName: 'wijck.me | Cooper van Wijck\'s Portfolio and Blog',
     locale: 'en_AU',
