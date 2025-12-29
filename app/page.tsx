@@ -18,12 +18,7 @@ export default function Page() {
       <p className="my-4">
         {`I'm a technology focused graduate at `}
         <a href="https://hub24.com.au" className="text-blue-300 underline">HUB24</a>
-        {`, having completed my Bachelor of Laws and Bachelor of Computer Science 
-        at the University of New South Wales. Currently undertaking my Graduate Diploma of Legal Practice 
-        at the College of Law, I operate at the intersection of technology and law. My interdisciplinary 
-        background provides unique insights into how technology interfaces with legal and social systems, 
-        particularly in areas of automation and emerging technologies. I'm passionate about exploring how 
-        these innovations can enhance efficiency and create positive change in our daily lives.
+        {`, I apply my degrees in Law and Computer Science to dissect and apply solutions to emerging fields. My passion lies at the intersection of technology and law, and I'm excited to explore how new technologies impact and shape society. I enjoy investigating how automation and the integration of technology can enhance efficiency and enjoyment in our daily lives.
         `}
       </p>
       <h3 className="mb-2 text-4xl font-semibold tracking-tighter">
