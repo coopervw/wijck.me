@@ -1,5 +1,6 @@
 import { BlogPosts } from "app/components/posts";
 import TypeItComponent from "app/components/typed";
+import { blurb, blurbWithLink } from "app/components/blurb";
 
 export const metadata = {
   title: "Home | Cooper van Wijck", // This will use the template to become "Home | Cooper van Wijck"
@@ -21,14 +22,7 @@ export default function Page() {
           Cooper.
         </TypeItComponent>
       </div>
-      <p className="my-4">
-        {`As an AI Engineer and Team Lead at `}
-        <a href="https://hub24.com.au" className="text-blue-300 underline">
-          HUB24
-        </a>
-        {`, I apply my knowledge across law and technology to build practical and compliant solutions. I work across the technology stack to combine infrastructure, application development and business understanding to build genuinely useful software. I'm always excited to experiment and explore how technology solutions can reduce tedious tasks so we can focus on the important things.
-        `}
-      </p>
+      <p className="my-4">{blurbWithLink}</p>
       <h3 className="mb-2 text-4xl font-semibold tracking-tighter">Blog</h3>
       <div className="items-start justify-start">
         <BlogPosts />
